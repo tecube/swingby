@@ -5,11 +5,52 @@ function build_stored_word_list_html(items) {
         var li = document.createElement("li");
         li.className = headword;
 
-        var t = document.createTextNode(headword);
+        // Add headword text
+        var headword_div = document.createElement("div");
+        headword_div.className = "headword";
+        var headword_textnode = document.createTextNode(headword);
+        headword_div.appendChild(headword_textnode)
+        li.appendChild(headword_div);
 
-        li.appendChild(t);
+        // Add meanings text
+        var meanings_div = document.createElement("div");
+        meanings_div.className = "meanings";
+        var meanings_str = items[headword];
+        var meanings_textnode = document.createTextNode(meanings_str);
+        meanings_div.appendChild(meanings_textnode)
+        li.appendChild(meanings_div);
+
+        // Add a handler for editing the meanings
+        meanings_div.addEventListener("click", enable_editing_meanings);
+
         word_ul.appendChild(li);
     }
+}
+
+function enable_editing_meanings(event) {
+    var meanings_div = event.target;
+    var parent = event.target.parentNode;
+    var meanings_textarea = document.createElement("textarea");
+
+    meanings_textarea.value = meanings_div.textContent;
+
+    parent.insertBefore(meanings_textarea, meanings_div);
+
+    meanings_div.style.display = "none";
+    meanings_textarea.focus();
+
+    meanings_textarea.addEventListener("blur", disable_editing_meanings);
+}
+
+function disable_editing_meanings(event) {
+    var meanings_textarea = event.target;
+
+    var meanings_div = meanings_textarea.nextSibling;
+    meanings_div.textContent = meanings_textarea.value;
+
+    meanings_textarea.remove();
+
+    meanings_div.style.display = "block";
 }
 
 document.addEventListener('DOMContentLoaded', function() {
