@@ -16,13 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var clear_yes = document.getElementById("yes");
     clear_yes.style.display = "none";
     
+    // Add clear button's behavior:
+    //   if pushed, show confirmation button 'yes'
     var clear_link = document.getElementById("clear");
     clear_link.addEventListener("click", function(){
-        if(clear_yes.style.display=="none"){
-            clear_yes.style.display = "inline-block";
-        }else{
-            clear_yes.style.display = "none";
-        }
+        clear_yes.style.display = "inline-block";
     }, false);
     
     clear_yes.addEventListener("mouseout", function(){
