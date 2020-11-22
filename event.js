@@ -9,13 +9,13 @@ chrome.runtime.onInstalled.addListener(function(){
 chrome.contextMenus.onClicked.addListener(function(info, tab){
     headword = info.selectionText;
 
-    chrome.storage.sync.set({[headword]: "test"}, function() {
-        console.log(chrome.runtime.lastError);
-        console.log(headword + " is stored.");
+    chrome.storage.sync.get([headword], function(items) {
+        // Skip if existing word
+        if(Object.keys(items).length){
+            return;
+        }
 
-        check = chrome.storage.sync.get(null, function(items) {
-            console.log("storage: ");
-            console.log(items);
-        });
+        // Save the word
+        chrome.storage.sync.set({[headword]: meanings + ""});
     });
 });
