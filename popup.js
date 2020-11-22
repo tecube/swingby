@@ -2,9 +2,11 @@ function build_stored_word_list_html(items) {
     var word_ul = document.getElementById("word-list");
 
     for(headword in items) {
-        var li = document.createElement("li", {"id": "headword-" + headword});
+        var li = document.createElement("li");
+        li.className = headword;
+
         var t = document.createTextNode(headword);
-        console.log(headword)
+
         li.appendChild(t);
         word_ul.appendChild(li);
     }
