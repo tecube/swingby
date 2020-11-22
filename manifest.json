@@ -2,7 +2,10 @@
   "name": "Swing by",
   "description": "Shows an context menu for storing selected words",
   "version": "0.0.1",
-  "permissions": ["contextMenus"],
+  "permissions": [
+    "contextMenus",
+    "storage"
+  ],
   "background": {
     "scripts": ["event.js"],
     "persistent": false

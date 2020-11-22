@@ -7,5 +7,15 @@ chrome.runtime.onInstalled.addListener(function(){
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab){
-    console.log("clicked.");
+    headword = info.selectionText;
+
+    chrome.storage.sync.set({[headword]: "test"}, function() {
+        console.log(chrome.runtime.lastError);
+        console.log(headword + " is stored.");
+
+        check = chrome.storage.sync.get(null, function(items) {
+            console.log("storage: ");
+            console.log(items);
+        });
+    });
 });
