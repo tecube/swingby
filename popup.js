@@ -11,8 +11,10 @@ function build_stored_word_list_html(items) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // List the stored word as <li>s
     chrome.storage.sync.get(null, build_stored_word_list_html);
 
+    // Hide the storage-clearing confirmation button
     var clear_yes = document.getElementById("yes");
     clear_yes.style.display = "none";
     
@@ -23,10 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
         clear_yes.style.display = "inline-block";
     }, false);
     
+    // Hide the confirmation button 'yes' if it is mouseouted
     clear_yes.addEventListener("mouseout", function(){
         clear_yes.style.display = "none";
     }, false);
     
+    // Clear the stored words data if the 'yes' button is pushed
     clear_yes.addEventListener("click", function(){
         chrome.storage.sync.clear();
         clear_yes.style.display ="none";
