@@ -6,6 +6,10 @@
     "contextMenus",
     "storage"
   ],
+  "browser_action": {
+    "default_title": "swingby",
+    "default_popup": "popup.html"
+  },
   "background": {
     "scripts": ["event.js"],
     "persistent": false
