@@ -16,6 +16,6 @@ chrome.contextMenus.onClicked.addListener(function(info, tab){
         }
 
         // Save the word
-        chrome.storage.sync.set({[headword]: meanings + ""});
+        chrome.storage.sync.set({[headword]: "EDIT"});
     });
 });
