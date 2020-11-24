@@ -39,12 +39,17 @@ function enable_editing_meanings(event) {
     meanings_div.style.display = "none";
     meanings_textarea.focus();
 
-    meanings_textarea.addEventListener("blur", disable_editing_meanings);
+    meanings_textarea.addEventListener("blur", function(event) {
+        var meanings_textarea = event.target;
+        var meanings_str = meanings_textarea.value;
+
+        chrome.storage.sync.set({[headword]: meanings_str});
+
+        disable_editing_meanings(meanings_textarea);
+    });
 }
 
-function disable_editing_meanings(event) {
-    var meanings_textarea = event.target;
-
+function disable_editing_meanings(meanings_textarea) {
     var meanings_div = meanings_textarea.nextSibling;
     meanings_div.textContent = meanings_textarea.value;
 
