@@ -58,6 +58,21 @@ function disable_editing_meanings(meanings_textarea) {
     meanings_div.style.display = "block";
 }
 
+function generate_output_str(words_ul) {
+    output = "";
+    li_list = words_ul.querySelectorAll("li");
+
+    for(var i = 0, len = li_list.length; i < len; i++) {
+        var li = li_list[i];
+        output += li.getElementsByClassName("headword")[0].textContent;
+        output += "\t";
+        output += li.getElementsByClassName("meanings")[0].textContent;
+        output += "\n\n";
+    }
+
+    return output;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // List the stored word as <li>s
     chrome.storage.sync.get(null, build_stored_word_list_html);
@@ -83,4 +98,18 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.storage.sync.clear();
         clear_yes.style.display ="none";
     }, false);
+
+    // Generate a string to be imported to Quizlet
+    var export_link = document.getElementById("export");
+    export_link.addEventListener("click", function() {
+        var word_ul = document.getElementById("word-list");
+        var output_str = generate_output_str(word_ul);
+        var output_textnode = document.createTextNode(output_str);
+        var output_textarea = document.getElementById("output");
+        output_textarea.appendChild(output_textnode);
+
+        // Copy the string
+        output_textarea.select();
+        document.execCommand("copy");
+    });
 });
