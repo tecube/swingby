@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(function(){
     const menu = chrome.contextMenus.create({
-        id: "store",
-        title: "'%s' is selected",
+        id: "save_word",
+        title: "save '%s' in word list",
         contexts: ['selection']
     });
 });
